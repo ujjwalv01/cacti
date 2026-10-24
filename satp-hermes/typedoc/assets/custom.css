@@ -38,9 +38,15 @@
   --space-3: 16px;
   --radius-md: 8px;
 
+  /* Top navigation bar (header tokens from cacti-tokens.css) */
+  --light-cacti-header-background: var(--cacti-green-700);
+  --light-cacti-header-foreground: #ffffff;
+  --dark-cacti-header-background: var(--cacti-ink-700);
+  --dark-cacti-header-foreground: var(--cacti-paper);
+
   /* Light theme: semantic mapping onto TypeDoc's inputs */
-  --light-color-background: var(--cacti-paper);
-  --light-color-background-secondary: #ffffff;
+  --light-color-background: #ffffff;
+  --light-color-background-secondary: var(--cacti-paper);
   --light-color-background-active: var(--cacti-green-100);
   --light-color-active-menu-item: var(--cacti-green-100);
   --light-color-accent: var(--cacti-ink-100);
@@ -96,6 +102,42 @@ h4 {
 code,
 pre {
   font-family: var(--font-mono);
+}
+
+/* Resolve the header tokens the same way TypeDoc resolves its own theme:
+   OS preference by default, overridden by the theme setting */
+@media (prefers-color-scheme: light) {
+  :root {
+    --cacti-header-background: var(--light-cacti-header-background);
+    --cacti-header-foreground: var(--light-cacti-header-foreground);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cacti-header-background: var(--dark-cacti-header-background);
+    --cacti-header-foreground: var(--dark-cacti-header-foreground);
+  }
+}
+:root[data-theme="light"] {
+  --cacti-header-background: var(--light-cacti-header-background);
+  --cacti-header-foreground: var(--light-cacti-header-foreground);
+}
+:root[data-theme="dark"] {
+  --cacti-header-background: var(--dark-cacti-header-background);
+  --cacti-header-foreground: var(--dark-cacti-header-foreground);
+}
+
+/* Toolbar: green in the light theme, dark surface in the dark theme */
+.tsd-page-toolbar {
+  background: var(--cacti-header-background);
+  color: var(--cacti-header-foreground);
+}
+.tsd-page-toolbar a,
+.tsd-page-toolbar .tsd-widget {
+  color: var(--cacti-header-foreground);
+}
+.tsd-page-toolbar :is(a, button):focus-visible {
+  outline-color: var(--cacti-header-foreground);
 }
 
 /* Toolbar title carries the wordmark voice */

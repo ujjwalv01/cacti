@@ -31,7 +31,7 @@
   --cacti-paper: #f7f9f6;
 
   /* Color: semantic (light) */
-  --background: var(--cacti-paper);
+  --background: #ffffff;
   --foreground: var(--cacti-ink-900);
   --surface: #ffffff;
   --surface-muted: var(--cacti-green-100);
@@ -45,6 +45,11 @@
   --warning: var(--cacti-bloom-700);
   --danger: #c04a3d;
   --focus-ring: var(--cacti-green-500);
+
+  /* Color: top navigation bar */
+  --header-background: var(--cacti-green-700);
+  --header-foreground: #ffffff;
+  --header-active: #ffffff;
 
   /* Typography */
   --font-display: "Barlow", "Helvetica Neue", Arial, sans-serif;
@@ -97,4 +102,7 @@
   --primary-foreground: var(--cacti-ink-900);
   --muted-foreground: var(--cacti-ink-300);
   --accent-foreground: var(--cacti-ink-900);
+  --header-background: var(--cacti-ink-700);
+  --header-foreground: var(--cacti-paper);
+  --header-active: var(--cacti-green-500);
 }

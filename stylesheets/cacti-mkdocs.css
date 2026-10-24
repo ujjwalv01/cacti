@@ -144,58 +144,57 @@
 }
 
 /* --------------------------------------------------------------------------
-   3. Header, tabs, and navigation drawer: surface background,
-   primary active state, focus ring
+   3. Header, tabs, and navigation drawer: header tokens (green in the light
+   scheme, dark surface in the dark scheme), active tab underline, focus ring
    -------------------------------------------------------------------------- */
 .md-header,
 .md-tabs,
 .md-nav--primary .md-nav__title[for="__drawer"] {
-  --md-primary-bg-color: var(--foreground);
-  --md-primary-bg-color--light: var(--muted-foreground);
-  background-color: var(--surface);
-  color: var(--foreground);
+  --md-primary-bg-color: var(--header-foreground);
+  --md-primary-bg-color--light: color-mix(
+    in srgb,
+    var(--header-foreground) 75%,
+    transparent
+  );
+  background-color: var(--header-background);
+  color: var(--header-foreground);
 }
 
-.md-tabs {
+/* The dark header sits on an equally dark page, so outline it */
+[data-md-color-scheme="slate"] .md-tabs {
   border-bottom: 1px solid var(--border);
 }
 
+/* Inactive tabs keep full-strength text for contrast; the active tab is
+   marked by weight and an underline */
 .md-tabs__link {
-  color: var(--muted-foreground);
+  color: var(--header-foreground);
   opacity: 1;
 }
-.md-tabs__link:is(:hover, :focus) {
-  color: var(--foreground);
-}
 .md-tabs__item--active .md-tabs__link {
-  color: var(--primary);
+  color: var(--header-active);
   font-weight: 600;
 }
 .md-tabs__item--active {
-  box-shadow: inset 0 calc(-1 * var(--space-1) / 2) 0 var(--primary);
+  box-shadow: inset 0 calc(-1 * var(--space-1) / 2) 0 var(--header-active);
 }
 
 @media screen and (min-width: 60em) {
   .md-search__form {
-    background-color: color-mix(in srgb, var(--foreground) 6%, transparent);
+    background-color: color-mix(
+      in srgb,
+      var(--header-foreground) 15%,
+      transparent
+    );
     border-radius: var(--radius-md);
   }
   .md-search__form:hover {
-    background-color: color-mix(in srgb, var(--foreground) 10%, transparent);
+    background-color: color-mix(
+      in srgb,
+      var(--header-foreground) 22%,
+      transparent
+    );
   }
-}
-
-/* The header and drawer now sit on a light surface in the light scheme, so
-   the logo swaps to the full-color variant there (see overrides/partials/
-   logo.html). The color-reverse logo is kept for the dark scheme. */
-.md-logo img.cacti-logo--dark {
-  display: none;
-}
-[data-md-color-scheme="slate"] .md-logo img.cacti-logo--light {
-  display: none;
-}
-[data-md-color-scheme="slate"] .md-logo img.cacti-logo--dark {
-  display: block;
 }
 
 /* Visible focus ring on every interactive element */
@@ -205,6 +204,14 @@
   ) {
   outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
+}
+/* The green focus ring would disappear on the green header */
+:is(.md-header, .md-tabs)
+  :is(a, button, input, label, summary, [tabindex]):is(
+    :focus-visible,
+    .focus-visible
+  ) {
+  outline-color: var(--header-foreground);
 }
 
 /* --------------------------------------------------------------------------
@@ -404,3 +411,6 @@
 .cacti-swatch--warning { --cacti-swatch: var(--warning); }
 .cacti-swatch--danger { --cacti-swatch: var(--danger); }
 .cacti-swatch--focus-ring { --cacti-swatch: var(--focus-ring); }
+.cacti-swatch--header-background { --cacti-swatch: var(--header-background); }
+.cacti-swatch--header-foreground { --cacti-swatch: var(--header-foreground); }
+.cacti-swatch--header-active { --cacti-swatch: var(--header-active); }
